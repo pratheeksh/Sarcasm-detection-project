@@ -1,7 +1,4 @@
 .idea/
 .metadata/
-SarcasmDetector/.classpath
-SarcasmDetector/.project
-SarcasmDetector/.settings/
-SarcasmDetector/bin
-RemoteSystemsTempFiles/
+Sarcasm-DetectorPy/nyu.nlp/*.p
+
