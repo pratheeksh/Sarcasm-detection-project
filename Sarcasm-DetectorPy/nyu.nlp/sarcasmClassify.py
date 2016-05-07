@@ -28,7 +28,7 @@ class SarcasmClassifier():
     train,target,test = knnobj.extract_features_train(scores_features,test_data)
     output = knnobj.classify(train,target,test)
     for rows in output:
-        print rows[0]['Text'], rows[1]
+        print rows[0], rows[1]
     # Featurizer
 
 
