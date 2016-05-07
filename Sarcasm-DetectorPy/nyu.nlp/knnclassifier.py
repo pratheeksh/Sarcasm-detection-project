@@ -19,7 +19,7 @@ class Classifier():
                 text.count('\"')]
     def classify(self,features,target):
         print features,target
-        neigh = KNeighborsClassifier(n_neighbors=3)
+        neigh = KNeighborsClassifier(n_neighbors=5)
         neigh.fit(np.array(features), np.array(target))
         vector = self.extract_features_sentence("I love exams!! Can't wait for more.")
 
