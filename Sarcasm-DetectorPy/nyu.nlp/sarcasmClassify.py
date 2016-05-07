@@ -21,11 +21,14 @@ class SarcasmClassifier():
     pm =patternMatcher.load_csv()
 
     #scores_features = [Text,ReviewId,Score]
-    scores_features=pm.init(cwset,hfwset)
+    scores_features,test_data=pm.init(cwset,hfwset)
+
     print "++++++++ KNN Classification starts here  +++++++"
     knnobj=kc.knnClassifier()
-    knnobj.extract_features_train(scores_features)
-
+    train,target,test = knnobj.extract_features_train(scores_features,test_data)
+    output = knnobj.classify(train,target,test)
+    for rows in output:
+        print rows[0]['Text'], rows[1]
     # Featurizer
 
 
