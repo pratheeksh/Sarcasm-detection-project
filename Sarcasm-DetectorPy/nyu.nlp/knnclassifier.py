@@ -15,12 +15,14 @@ class knnClassifier():
         target = []
         test = []
         count =0
+        for data in testdata:
+
+            test.append(self.extract_features_sentence(data['Text']))
         for data in traindata:
             train.append(self.extract_features_sentence(data['Text']))
             target.append(round(float(data['Score'])*100))
-        return train,target,testdata
+        return train,target,test
     def extract_features_sentence(self,text):
-        print text
         return [ text.count('!'),
                  text.count('?'),
                  len(text),
@@ -30,11 +32,8 @@ class knnClassifier():
         output = []
         neigh = KNeighborsClassifier(n_neighbors=10)
         neigh.fit(np.array(features), np.array(target))
-        for sent in test:
-            
-            vector = self.extract_features_sentence(sent['Text'])
-             
-            output.append([sent,neigh.predict([vector])])
+        for vector in test:
+            output.append([vector,neigh.predict([vector])])
         return output
     def generate_dataframe(self,filename):
         with open(filename,"rb") as csvfile:
