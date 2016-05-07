@@ -15,13 +15,16 @@ class SarcasmClassifier():
     dic = pattext.calculateCorpusFrequency()
     cwset = pattext.findCW()
     hfwset=pattext.findHFW()
-    cwset.__contains__()
+
     # Pattern Matching -
     pm =patternMatcher.load_csv()
-    testpatterns=pm.generate_all_patterns(reviews['text'],cwset,hfwset)
+
+    #scores_features = [Text,ReviewId,Score]
+    scores_features=pm.init(cwset,hfwset)
+
 
     # Featurizer
-    print testpatterns.__str__()
+
 
 
 def main():

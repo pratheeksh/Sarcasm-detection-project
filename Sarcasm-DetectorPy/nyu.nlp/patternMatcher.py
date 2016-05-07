@@ -3,48 +3,54 @@ import nltk
 import re
 import statistics
 from string import punctuation
-class load_csv(object):
-    def __init__(self):
+class load_csv():
+
+
+    def init(self,cwset,hfwset):
         count = 0
+        self.cwset=cwset
+        self.hfwset=hfwset
         filename="../data/test.csv";
         text = []
-        sarcastic_pats = self.process_amazon("../data/amazon.csv")
+        sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
+        output=[]
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
+
                 reviewId = row['review_id']
                 para = row['text']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
-                text.append(res_sents)
-                count+= 1
-                if count == 5:
-                    break
-        self.calculate_matches(text,sarcastic_pats)
-        self.extract_punct(filename)
-    def calculate_matches(self,text,sarcastic_pats):
-        for para in text:
-            for sent in para:
-                sentpat = self.generate_patterns(sent)
-                maxMatch = 0
-                for sarcpat in sarcastic_pats:
-                    if sarcpat == sentpat:
-                        print "Exact Match" , sarcpat, sentpat, 1.0
-                        break
-                    else:
-                        score = self.lcs(sarcpat,sentpat)
-                        if float(score)/len(sarcpat) == 1.0:
-                            print "Sparse Match", sarcpat, sentpat, 0.1
-                            break
+                for each_sentence in res_sents:
+                    if each_sentence is not None:
+                        score=self.calculate_matches(each_sentence,sarcastic_pats)
+                        output.append([each_sentence,reviewId,score])
+                        print output[output.__len__()-1]
+        return output
 
-                        if maxMatch < score:
-                            maxMatch = score
-                            maxPat = sarcpat
-                if maxMatch > 0:
-                    print "Partial Match" , maxPat, sentpat, 0.1*float(maxMatch)/len(maxPat)
-                else:
-                    print "No Match", sentpat, 0
-    def process_amazon(self,filename):
+    def calculate_matches(self,text,sarcastic_pats):
+        print text
+        sentpat = self.generate_patterns(text)
+        maxMatch = 0
+        for sarcpat in sarcastic_pats:
+            if sarcpat == sentpat:
+                #print "Exact Match" , sarcpat, sentpat, 1.0
+                break
+            else:
+                score = self.lcs(sarcpat,sentpat)
+                if float(score)/len(sarcpat) == 1.0:
+                   # print "Sparse Match", sarcpat, sentpat, 0.1
+                    break
+
+                if maxMatch < score:
+                    maxMatch = score
+                    maxPat = sarcpat
+        if maxMatch > 0:
+            return 0.1*float(maxMatch)/len(maxPat)
+        else:
+            return 0
+    def process_amazon(self,filename,cwset,hfwset):
         sarcastic_patterns = []
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
@@ -58,49 +64,26 @@ class load_csv(object):
                         sarcastic_patterns.append(pat)
         return sarcastic_patterns
 
-    def generate_all_patterns(self,reviews,cwset,hfwset):
-        extracted_patterns=[]
-        for each_review in reviews:
-            tokens=nltk.word_tokenize(each_review)
-            pattern=[]
-            for each_token in tokens:
-                isCW= cwset.__contains__(each_token)
-                isHFW=hfwset.__contains__(each_token)
-                pat = ''
-                if isCW and isHFW:
-                    pat = pat+'H'
+    def generate_patterns(self,text):
+        pattern=[]
+        if(text is None):
+            return None
+        tokens=nltk.word_tokenize(text)
+        for each_token in tokens:
+            isCW= self.cwset.__contains__(each_token)
+            isHFW=self.hfwset.__contains__(each_token)
+            pat = ''
+            if isCW and isHFW:
+                pat = pat+'H'
+            else :
+                if isCW:
+                    pat=pat + 'C'
                 else :
-                    if isCW:
-                        pat=pat + 'C'
-                    else :
-                        pat=pat +'H'
+                    pat=pat +'H'
 
             pattern.append(pat)
-            extracted_patterns.append(pattern)
-        return extracted_patterns
+        return pattern
 
-    def generate_patterns(self,sent):
-        text = nltk.word_tokenize(sent)
-        tagged_sent = nltk.pos_tag(text)
-        noun = re.compile('NN|NNS')
-        verb = re.compile('VB*')
-        adj = re.compile('JJ*')
-        adv = re.compile('RB*')
-        res_list = []
-
-        for tup in tagged_sent:
-            word = tup[0]
-            pos = tup[1]
-            pat = ''
-            res = bool(noun.match(pos))|bool(verb.match(pos))|bool(adj.match(pos))|bool(adv.match(pos))
-            if res:
-                new_tup = (word, "CW")
-                pat = pat+'C'
-            else:
-                new_tup = (word, "HFW")
-                pat = pat+'H'
-            res_list.append(pat)
-        return res_list
 
 
     def extract_punct(self,filename):
@@ -125,4 +108,8 @@ class load_csv(object):
                     memo[i+1][j+1] = max( memo[i][j+1], memo[i+1][j] )
         return memo[len(pattern)][len(sent)]
         #return memo
-new_class = load_csv()
+def main():
+    new_class = load_csv()
+    new_class.init()
+if __name__ == '__main__':
+    main()
