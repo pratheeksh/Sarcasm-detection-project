@@ -69,7 +69,7 @@ class load_csv():
                        temp_dict={}
                        score=self.calculate_matches(each_sentence,sarcastic_pats)
                        temp_dict['Text'] = each_sentence
-                       temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                       temp_dict['Review_id'] = "{}".format(reviewId)
                        temp_dict['Score'] = score
                        temp_dict['Funny Score'] = "{}".format(funnyScore)
                        output.append(temp_dict)
