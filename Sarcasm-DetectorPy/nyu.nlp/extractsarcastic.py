@@ -8,9 +8,10 @@ def identify_sentiment(text):
     sentimentscore = 0
     try:
         return list(blob.sentiment)
-
     except (RuntimeError, TypeError, NameError,UnicodeDecodeError):
         print "this is fucking up",blob
+
+
 
 def main():
     print identify_sentiment("Simple is better than complex")

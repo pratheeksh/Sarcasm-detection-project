@@ -16,28 +16,20 @@ class load_csv():
         sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
         output=[]
         res = self.generate_sents(filename)
-        first_count = 0
-        second_count = 0
         test_data = []
         for tup in res:
-            res_sents = tup[0]
-            reviewId = tup[1]
+            res_sents,reviewId,funnyScore = tup[0],tup[1],tup[2]
             for each_sentence in res_sents:
-                first_count+= 1
-                second_count+= 1
-                if second_count > 2000:
-                    break
                 if each_sentence is not None:
                     temp_dict={}
                     score=self.calculate_matches(each_sentence,sarcastic_pats)
                     temp_dict['Text'] = each_sentence
-                    temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                    temp_dict['Review_id'] = "{}".format(reviewId)
+                    temp_dict['Funny Score'] = "{}".format(funnyScore)
                     temp_dict['Score'] = score
-                    if first_count < 500:
-                        test_data.append(temp_dict)
-                    else:
-                        output.append(temp_dict)
-        return output,test_data
+                    output.append(temp_dict)
+        return output
+
     def match_test_patterns(self,cwset,hfwset):
         filename="../data/Twitter.csv";
         text = []
@@ -61,7 +53,7 @@ class load_csv():
 
                 b, c, d, e = float(row['MT1']), float(row['MT2']), float(row['MT3']), float(row['SASI'])
                 avg_score = statistics.mean([b,c,d,e])
-                expected.append(avg_score)
+                expected.append((reviewId,avg_score))
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
 
@@ -93,11 +85,10 @@ class load_csv():
                 if(count>100):
                     break;
                 count+=1;
-                reviewId = row['review_id']
-                para = row['text']
+                reviewId,para,funnyScore = row['review_id'],row['text'],row['votes.funny']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
-                output.append((res_sents,reviewId))
+                output.append((res_sents,reviewId,funnyScore))
             return output
 
     def calculate_matches(self,text,sarcastic_pats):

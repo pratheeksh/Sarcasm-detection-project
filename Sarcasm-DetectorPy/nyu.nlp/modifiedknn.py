@@ -12,6 +12,7 @@ class ModifiedKNN():
         count_labels=Counter(arr)
         return count_labels
     # predict
+
     def predict_test(self,trainvectors,traintarget,testvectors):
         countlabels=self.count_labels(traintarget)
         test_predictions=[]
