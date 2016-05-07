@@ -7,9 +7,9 @@ class knnClassifier():
     def extract_features_train(self,traindata):
         train = []
         target = []
-        for data in train_data:
+        for data in traindata:
             train.append(self.extract_features_sentence(data['Text']))
-            target.append(round(float(data['Score'])))
+            target.append(round(float(data['Score'])*100))
         self.classify(train,target)
     def extract_features_sentence(self,text):
         return [ text.count('!'),
@@ -35,6 +35,6 @@ class knnClassifier():
                 res['text'] = text
                 res['score'] = avg_score
                 train_data.append(res)
-        print train_data
+
         return train_data
 

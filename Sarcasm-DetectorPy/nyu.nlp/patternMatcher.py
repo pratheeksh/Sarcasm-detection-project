@@ -16,21 +16,29 @@ class load_csv():
         output=[]
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
+            count=0
             for row in reader:
-
+                if(count>5):
+                    break;
+                count+=1;
                 reviewId = row['review_id']
                 para = row['text']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
+
                 for each_sentence in res_sents:
                     if each_sentence is not None:
+                        temp_dict={}
                         score=self.calculate_matches(each_sentence,sarcastic_pats)
-                        output.append([each_sentence,reviewId,score])
-                        print output[output.__len__()-1]
+                        temp_dict['Text'] = each_sentence
+                        temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                        temp_dict['Score'] = score
+                        output.append(temp_dict)
+
         return output
 
     def calculate_matches(self,text,sarcastic_pats):
-        print text
+
         sentpat = self.generate_patterns(text)
         maxMatch = 0
         for sarcpat in sarcastic_pats:
@@ -68,7 +76,8 @@ class load_csv():
         pattern=[]
         if(text is None):
             return None
-        tokens=nltk.word_tokenize(text)
+
+        tokens=nltk.word_tokenize(text.decode("utf-8"))
         for each_token in tokens:
             isCW= self.cwset.__contains__(each_token)
             isHFW=self.hfwset.__contains__(each_token)
@@ -109,7 +118,6 @@ class load_csv():
         return memo[len(pattern)][len(sent)]
         #return memo
 def main():
-    new_class = load_csv()
-    new_class.init()
+    print "In Pattern Matcher"
 if __name__ == '__main__':
     main()
