@@ -2,6 +2,7 @@ import csv
 import statistics
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
+import extractsarcastic
 class knnClassifier():
 ### Define specific features
     def extract_features_train(self,traindata):
@@ -15,7 +16,7 @@ class knnClassifier():
         return [ text.count('!'),
                  text.count('?'),
                  len(text),
-                text.count('\"')]
+                text.count('\"')]+extractsarcastic.identify_sentiment(text)
     def classify(self,features,target):
         print features,target
         neigh = KNeighborsClassifier(n_neighbors=5)
