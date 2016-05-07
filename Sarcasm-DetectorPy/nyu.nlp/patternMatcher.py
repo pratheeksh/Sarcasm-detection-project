@@ -7,6 +7,7 @@ class load_csv():
 
 
     def init(self,cwset,hfwset):
+        print "hello bharathi"
         count = 0
         self.cwset=cwset
         self.hfwset=hfwset
@@ -14,28 +15,45 @@ class load_csv():
         text = []
         sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
         output=[]
+        res = self.generate_sents(filename)
+        first_count = 0
+        second_count = 0
+        test_data = []
+        for tup in res:
+            res_sents = tup[0]
+            reviewId = tup[1]
+            for each_sentence in res_sents:
+                first_count+= 1
+                second_count+= 1
+                if second_count > 500:
+                    break
+                if each_sentence is not None:
+                    temp_dict={}
+
+                    score=self.calculate_matches(each_sentence,sarcastic_pats)
+                    temp_dict['Text'] = each_sentence
+                    temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                    if first_count < 200:
+                        test_data.append(temp_dict)
+                    else:
+                        temp_dict['Score'] = score
+                        output.append(temp_dict)
+        return output,test_data
+    def generate_sents(self,filename):
+        output = [] 
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
             count=0
             for row in reader:
-                if(count>5):
+                if(count>100):
                     break;
                 count+=1;
                 reviewId = row['review_id']
                 para = row['text']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
-
-                for each_sentence in res_sents:
-                    if each_sentence is not None:
-                        temp_dict={}
-                        score=self.calculate_matches(each_sentence,sarcastic_pats)
-                        temp_dict['Text'] = each_sentence
-                        temp_dict['Review_id'] = "{}{}".format(reviewId,count)
-                        temp_dict['Score'] = score
-                        output.append(temp_dict)
-
-        return output
+                output.append((res_sents,reviewId))
+            return output
 
     def calculate_matches(self,text,sarcastic_pats):
 
