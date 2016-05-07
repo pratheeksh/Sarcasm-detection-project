@@ -11,7 +11,7 @@ class load_csv():
         count = 0
         self.cwset=cwset
         self.hfwset=hfwset
-        filename="../data/test.csv";
+        filename="../data/test.csv"
         text = []
         sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
         output=[]
@@ -38,8 +38,54 @@ class load_csv():
                     else:
                         output.append(temp_dict)
         return output,test_data
+    def match_test_patterns(self,cwset,hfwset):
+        filename="../data/Twitter.csv";
+        text = []
+        sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
+        output=[]
+        first_count = 0
+        second_count = 0
+        test_data = []
+        expected = []
+        tweets = []
+        with open(filename,"rb") as csvfile:
+            reader = csv.DictReader(csvfile)
+            count=0
+            output = []
+            for row in reader:
+                if(count>100):
+                    break;
+                count+=1;
+                reviewId = count 
+                para = row['TWEET']
+
+                b, c, d, e = float(row['MT1']), float(row['MT2']), float(row['MT3']), float(row['SASI'])
+                avg_score = statistics.mean([b,c,d,e])
+                expected.append(avg_score)
+                res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
+                res_sents = res.rstrip().splitlines()
+
+                tweets.append((res_sents,reviewId))
+    
+
+            for tup in tweets:
+                print tup
+                res_sents = tup[0]
+                reviewId = tup[1]
+                for each_sentence in res_sents:
+                   if each_sentence is not None:
+                       temp_dict={}
+
+                       score=self.calculate_matches(each_sentence,sarcastic_pats)
+                       temp_dict['Text'] = each_sentence
+                       temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                       temp_dict['Score'] = score
+                       output.append(temp_dict)
+            return output,expected
+
     def generate_sents(self,filename):
         output = [] 
+        expected = []
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
             count=0
