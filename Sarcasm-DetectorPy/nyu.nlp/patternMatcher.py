@@ -33,10 +33,10 @@ class load_csv():
                     score=self.calculate_matches(each_sentence,sarcastic_pats)
                     temp_dict['Text'] = each_sentence
                     temp_dict['Review_id'] = "{}{}".format(reviewId,count)
+                    temp_dict['Score'] = score
                     if first_count < 200:
                         test_data.append(temp_dict)
                     else:
-                        temp_dict['Score'] = score
                         output.append(temp_dict)
         return output,test_data
     def generate_sents(self,filename):

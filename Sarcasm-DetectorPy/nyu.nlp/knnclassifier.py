@@ -17,9 +17,9 @@ class knnClassifier():
         count =0
         for data in testdata:
 
-            test.append(self.extract_features_sentence(data['Text']))
+            test.append(self.extract_features_sentence(data['Text'])+[float(data['Score'])])
         for data in traindata:
-            train.append(self.extract_features_sentence(data['Text']))
+            train.append(self.extract_features_sentence(data['Text'])+[float(data['Score'])])
             target.append(round(float(data['Score'])*100))
         return train,target,test
     def extract_features_sentence(self,text):

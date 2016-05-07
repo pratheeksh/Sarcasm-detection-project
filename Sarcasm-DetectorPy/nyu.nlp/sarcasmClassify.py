@@ -22,6 +22,8 @@ class SarcasmClassifier():
 
     #scores_features = [Text,ReviewId,Score]
     scores_features,test_data=pm.init(cwset,hfwset)
+    i=pm.init(cwset,hfwset)
+
 
     print "++++++++ KNN Classification starts here  +++++++"
     knnobj=kc.knnClassifier()
