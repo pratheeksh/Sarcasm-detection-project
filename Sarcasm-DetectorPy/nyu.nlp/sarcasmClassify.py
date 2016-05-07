@@ -36,8 +36,7 @@ class SarcasmClassifier():
     mknnObj=mKNN.ModifiedKNN()
     predictions=mknnObj.predict_test(train,target,test)
     for i in range(len(output)):
-        print "Sentence={}  KNNClassifier score={} Modified K Score={}".\
-            format(test_data[i]['Text'], output[i][1],predictions[i])
+        print "Finally found a Sarcastic Sentence={}  KNNClassifier score={} Modified K Score={}".format(test_data[i]['Text'], output[i][1],predictions[i])
 
 def main():
     sc=SarcasmClassifier()
