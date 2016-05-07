@@ -2,15 +2,14 @@ import csv
 import statistics
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
-class Classifier():
+class knnClassifier():
 ### Define specific features
-    def extract_features_train(self):
+    def extract_features_train(self,traindata):
         train = []
         target = []
-        train_data = self.generate_dataframe("../data/amazon.csv")
         for data in train_data:
-            train.append(self.extract_features_sentence(data['text']))
-            target.append(round(float(data['score'])))
+            train.append(self.extract_features_sentence(data['Text']))
+            target.append(round(float(data['Score'])))
         self.classify(train,target)
     def extract_features_sentence(self,text):
         return [ text.count('!'),
@@ -39,8 +38,3 @@ class Classifier():
         print train_data
         return train_data
 
-def main():
-    sc=Classifier()
-    sc.extract_features_train()
-if __name__ == '__main__':
-    main()
