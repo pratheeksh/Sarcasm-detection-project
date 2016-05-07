@@ -2,6 +2,7 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 class Evaluation:
     def evaluate(self,output,expected):
@@ -22,14 +23,29 @@ class Evaluation:
         for rid in d:
             avg_score = d[rid]/c[rid]
             avg_expected[rid] = avg_score
-        print avg_expected
-        print expected
         for tup in expected:
-            trueValues.append(tup[1])
-            predictedValues.append(avg_expected[str(tup[0])])
+            if round(tup[1])*2 == 0:
+                t = 1
+            else:
+                t = round(tup[1])*2
+            trueValues.append(t)
+            if round(avg_expected[str(tup[0])]) == 0:
+                t = 1
+            else:
+                t = round(avg_expected[str(tup[0])])
+            predictedValues.append(t)
+        print len(trueValues),len(predictedValues)
+        trueValues = np.array(trueValues)
+        predictedValues = np.array(predictedValues)
+        for i in range(len(trueValues)):
+            if trueValues[i] == 0:
+                trueValues[i] = 1
+            if predictedValues[i] == 0:
+                predictedValues[i] = 1
+        print precision_recall_fscore_support(trueValues, predictedValues,average='macro')
         print self.calculateRecall(np.array(trueValues), np.array(predictedValues))
 
-
+        
     def calculateRecall(self, trueValues, predictedValues):
         return recall_score(trueValues, predictedValues, average = 'macro')
 

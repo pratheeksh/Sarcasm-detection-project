@@ -60,7 +60,6 @@ class load_csv():
                 tweets.append((res_sents,reviewId))
 
             for tup in tweets:
-                print tup
                 res_sents = tup[0]
                 reviewId = tup[1]
                 funnyScore = 4
