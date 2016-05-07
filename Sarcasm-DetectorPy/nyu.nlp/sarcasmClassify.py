@@ -1,4 +1,4 @@
-
+import knnclassifier
 import pandas as pd
 import patternExtract as pe
 import patternMatcher as patternMatcher
@@ -21,7 +21,7 @@ class SarcasmClassifier():
 
     #scores_features = [Text,ReviewId,Score]
     scores_features=pm.init(cwset,hfwset)
-
+    knnclassifier.extract_features_train(scores_features)
 
     # Featurizer
 
