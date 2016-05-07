@@ -29,7 +29,6 @@ class load_csv():
                     break
                 if each_sentence is not None:
                     temp_dict={}
-
                     score=self.calculate_matches(each_sentence,sarcastic_pats)
                     temp_dict['Text'] = each_sentence
                     temp_dict['Review_id'] = "{}{}".format(reviewId,count)
@@ -61,12 +60,10 @@ class load_csv():
         maxMatch = 0
         for sarcpat in sarcastic_pats:
             if sarcpat == sentpat:
-                #print "Exact Match" , sarcpat, sentpat, 1.0
                 break
             else:
                 score = self.lcs(sarcpat,sentpat)
                 if float(score)/len(sarcpat) == 1.0:
-                   # print "Sparse Match", sarcpat, sentpat, 0.1
                     break
 
                 if maxMatch < score:
@@ -84,7 +81,7 @@ class load_csv():
                 text = row['Text']
                 b, c, d, e = float(row['MT1']), float(row['MT2']), float(row['MT3']), float(row['SASI'])
                 avg_score = statistics.mean([b,c,d,e])
-                if avg_score >= 3:
+                if avg_score > 3:
                     pat = self.generate_patterns(text)
                     if pat not in sarcastic_patterns:
                         sarcastic_patterns.append(pat)
