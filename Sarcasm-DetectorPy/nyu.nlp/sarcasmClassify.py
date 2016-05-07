@@ -30,14 +30,14 @@ class SarcasmClassifier():
     knnobj=kc.knnClassifier()
     train,target,test = knnobj.extract_features_train(scores_features,test_data)
     output = knnobj.classify(train,target,test)
-    for rows in output:
-        print rows[0], rows[1]
-    # Featurizer
+
 
     #Modified KNN
     mknnObj=mKNN.ModifiedKNN()
     predictions=mknnObj.predict_test(train,target,test)
-    print predictions
+    for i in range(len(output)):
+        print "Sentence={}  KNNClassifier score={} Modified K Score={}".\
+            format(test_data[i]['Text'], output[i][1],predictions[i])
 
 def main():
     sc=SarcasmClassifier()

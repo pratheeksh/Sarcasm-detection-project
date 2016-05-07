@@ -7,7 +7,7 @@ class load_csv():
 
 
     def init(self,cwset,hfwset):
-        print "hello bharathi"
+
         count = 0
         self.cwset=cwset
         self.hfwset=hfwset
@@ -25,7 +25,7 @@ class load_csv():
             for each_sentence in res_sents:
                 first_count+= 1
                 second_count+= 1
-                if second_count > 500:
+                if second_count > 2000:
                     break
                 if each_sentence is not None:
                     temp_dict={}
@@ -34,7 +34,7 @@ class load_csv():
                     temp_dict['Text'] = each_sentence
                     temp_dict['Review_id'] = "{}{}".format(reviewId,count)
                     temp_dict['Score'] = score
-                    if first_count < 200:
+                    if first_count < 500:
                         test_data.append(temp_dict)
                     else:
                         output.append(temp_dict)

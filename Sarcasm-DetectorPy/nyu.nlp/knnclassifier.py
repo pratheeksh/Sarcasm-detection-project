@@ -22,11 +22,13 @@ class knnClassifier():
             train.append(self.extract_features_sentence(data['Text'])+[float(data['Score'])])
             target.append(round(float(data['Score'])*100))
         return train,target,test
+
     def extract_features_sentence(self,text):
         return [ text.count('!'),
                  text.count('?'),
                  len(text),
                 text.count('\"')]+extractsarcastic.identify_sentiment(str(text))
+
     def classify(self,features,target,test):
         #print features,target
         output = []
@@ -35,6 +37,7 @@ class knnClassifier():
         for vector in test:
             output.append([vector,neigh.predict([vector])])
         return output
+
     def generate_dataframe(self,filename):
         with open(filename,"rb") as csvfile:
             reader = csv.DictReader(csvfile)
