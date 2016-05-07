@@ -29,7 +29,7 @@ def identify_positive_sentiment(neg_df):
     neg_df.to_csv("ReviewsWithScore.csv")
 
 def main():
-    filename="/Users/bharathipriyaa/Desktop/NLP-Project/Sarcasm-DetectorPy/data/aaaa-yelp_academic_dataset_review.csv"
+    filename="/Users/bharathipriyaa/Desktop/NLP-Project/Sarcasm-DetectorPy/data/test.csv"
     extract_negative_reviews(filename)
 if __name__ == '__main__':
     main()
