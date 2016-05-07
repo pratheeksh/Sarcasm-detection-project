@@ -30,18 +30,13 @@ class SarcasmClassifier():
     train,target,test = knnobj.extract_features_train(train_features,test_features)
     output = knnobj.classify(train,target,test)
 
-    """
+    
     print "++++++++ Evaluation starts here ++++++++++"
     test_twitter_data,expected = pm.match_test_patterns(cwset,hfwset)
     train2,target2,test2 = knnobj.extract_features_train(scores_features,test_twitter_data)
     output2 = knnobj.classify(train2,target2,test2)
 
 
-    for i,row in enumerate(output2):
-        print row,test[i]
-    """
-
-    """
     ev = evaluationMetrics.Evaluation()
     twitter_out = []
     for i,row in enumerate(output2):
@@ -49,11 +44,11 @@ class SarcasmClassifier():
 
     #Modified KNN
     ev.evaluate(twitter_out,expected)
-    mknnObj=mKNN.ModifiedKNN()
+'''   mknnObj=mKNN.ModifiedKNN()
     predictions=mknnObj.predict_test(train,target,test)
     for i in range(len(output)):
         print "Sentence={}  KNNClassifier score={} Modified K Score={}".format(test_features[i]['Text'], output[i][1],predictions[i])
-    """
+'''
 def main():
     sc=SarcasmClassifier()
 
