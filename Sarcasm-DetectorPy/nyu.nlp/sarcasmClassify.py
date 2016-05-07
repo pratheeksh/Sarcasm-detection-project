@@ -5,7 +5,7 @@ import patternMatcher as patternMatcher
 import modifiedknn as mKNN
 import re
 import string
-
+import evaluationMetrics
 class SarcasmClassifier():
     #Load files
     reviews=pd.read_csv("../data/test.csv")
@@ -33,9 +33,12 @@ class SarcasmClassifier():
     test_twitter_data,expected = pm.match_test_patterns(cwset,hfwset)
     train2,target2,test2 = knnobj.extract_features_train(scores_features,test_twitter_data)
     output2 = knnobj.classify(train2,target2,test2)
+    ev = evaluationMetrics.Evaluation()
+    twitter_out = []
     for i,row in enumerate(output2):
-        print row,test[i]
+        twitter_out.append([row[1][0],test_twitter_data[i]])
     #Modified KNN
+    ev.evaluate(twitter_out,expected)
     mknnObj=mKNN.ModifiedKNN()
     predictions=mknnObj.predict_test(train,target,test)
     for i in range(len(output)):
