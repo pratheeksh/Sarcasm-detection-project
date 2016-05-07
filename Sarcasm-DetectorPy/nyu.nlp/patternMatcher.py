@@ -58,7 +58,6 @@ class load_csv():
                 res_sents = res.rstrip().splitlines()
 
                 tweets.append((res_sents,reviewId))
-    
 
             for tup in tweets:
                 print tup
@@ -67,7 +66,6 @@ class load_csv():
                 for each_sentence in res_sents:
                    if each_sentence is not None:
                        temp_dict={}
-
                        score=self.calculate_matches(each_sentence,sarcastic_pats)
                        temp_dict['Text'] = each_sentence
                        temp_dict['Review_id'] = "{}{}".format(reviewId,count)
@@ -85,7 +83,7 @@ class load_csv():
                 if(count>100):
                     break;
                 count+=1;
-                reviewId,para,funnyScore = row['review_id'],row['text'],row['votes.funny']
+                reviewId,para,funnyScore,bussID,coolScore = row['review_id'],row['text'],row['votes.funny'],row['business_id'],row['votes.cool']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
                 output.append((res_sents,reviewId,funnyScore))
@@ -102,7 +100,6 @@ class load_csv():
                 score = self.lcs(sarcpat,sentpat)
                 if float(score)/len(sarcpat) == 1.0:
                     break
-
                 if maxMatch < score:
                     maxMatch = score
                     maxPat = sarcpat
