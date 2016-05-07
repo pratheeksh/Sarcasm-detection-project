@@ -11,7 +11,7 @@ class ModifiedKNN():
         arr.sort()
         count_labels=Counter(arr)
         print count_labels
-    def predict_each_test(self,trainvectors,traintarget,testvectors):
+    def predict_test(self,trainvectors,traintarget,testvectors):
         countlabels=self.count_labels(traintarget)
         test_predictions=[]
         for each_test_vector in testvectors:
@@ -27,7 +27,9 @@ class ModifiedKNN():
                 label_i=df[i]['Scores']
                 prediction=prediction+ countlabels[label_i]/traintarget.len
             prediction=prediction/self.K
-
+            print "Sentence {} is predicted with Score {}".format(each_test_vector,prediction)
+            test_predictions.append(prediction)
+        return test_predictions
     def calculate_euclidean(self, f1,f2):
         return np.dot(f1,f2)
 
