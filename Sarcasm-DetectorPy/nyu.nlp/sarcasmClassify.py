@@ -2,6 +2,7 @@ import knnclassifier as kc
 import pandas as pd
 import patternExtract as pe
 import patternMatcher as patternMatcher
+import modifiedknn as mKNN
 import re
 import string
 
@@ -33,7 +34,10 @@ class SarcasmClassifier():
         print rows[0], rows[1]
     # Featurizer
 
-
+    #Modified KNN
+    mknnObj=mKNN.ModifiedKNN()
+    predictions=mknnObj.predict_test(train,target,test)
+    print predictions
 
 def main():
     sc=SarcasmClassifier()
