@@ -63,6 +63,7 @@ class load_csv():
                 print tup
                 res_sents = tup[0]
                 reviewId = tup[1]
+                funnyScore = 4
                 for each_sentence in res_sents:
                    if each_sentence is not None:
                        temp_dict={}
@@ -70,6 +71,7 @@ class load_csv():
                        temp_dict['Text'] = each_sentence
                        temp_dict['Review_id'] = "{}{}".format(reviewId,count)
                        temp_dict['Score'] = score
+                       temp_dict['Funny Score'] = "{}".format(funnyScore)
                        output.append(temp_dict)
             return output,expected
 
