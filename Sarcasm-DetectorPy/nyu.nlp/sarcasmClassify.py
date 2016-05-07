@@ -31,8 +31,8 @@ class SarcasmClassifier():
     train,target,test = knnobj.extract_features_train(scores_features,test_data)
     output = knnobj.classify(train,target,test)
     test_twitter_data,expected = pm.match_test_patterns(cwset,hfwset)
-    train,target,test = knnobj.extract_features_train(scores_features,test_twitter_data)
-    output2 = knnobj.classify(train,target,test)
+    train2,target2,test2 = knnobj.extract_features_train(scores_features,test_twitter_data)
+    output2 = knnobj.classify(train2,target2,test2)
     for i,row in enumerate(output2):
         print row,test[i]
     #Modified KNN
