@@ -26,7 +26,7 @@ class knnClassifier():
                  data['Text'].count('?'),
                  len(data['Text']),
                  float(data['Score']),
-                 float(data['Funny Score']),
+
                 data['Text'].count('\"')]+extractsarcastic.identify_sentiment(str(data['Text']))
         print feature_vector
         return feature_vector

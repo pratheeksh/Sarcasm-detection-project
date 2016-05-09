@@ -2,6 +2,7 @@ import csv
 import nltk
 import re
 import statistics
+import pandas as pd
 from string import punctuation
 class load_csv():
 
@@ -29,7 +30,18 @@ class load_csv():
                     temp_dict['Score'] = score
                     output.append(temp_dict)
         return output
-
+    def generate_amazon_test(self):
+        amazon_reviews=pd.read_csv("../data/amazon.csv")
+        output=[]
+        for index,each_sentence in amazon_reviews.iterrows():
+                if each_sentence is not None:
+                    temp_dict={}
+                    print each_sentence
+                    temp_dict['Text'] = each_sentence['Text']
+                    temp_dict['Review_id'] = "{}".format(4)
+                    temp_dict['Score'] = each_sentence['SASI']
+                    output.append(temp_dict)
+        return output
     def match_test_patterns(self,cwset,hfwset):
         filename="../data/Twitter.csv";
         text = []
@@ -84,7 +96,7 @@ class load_csv():
                 if(count>100):
                     break;
                 count+=1;
-                reviewId,para,funnyScore,bussID,coolScore = row['review_id'],row['text'],row['votes.funny'],row['business_id'],row['votes.cool']
+                reviewId,para,funnyScore,bussID,coolScore = row['review_id'],row['Text'],row['votes.funny'],row['business_id'],row['votes.cool']
                 res = re.sub(r'(?<=['+punctuation+'])\s+(?=[A-Z])', '\n', para)
                 res_sents = res.rstrip().splitlines()
                 output.append((res_sents,reviewId,funnyScore))
