@@ -2,8 +2,10 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
+import matplotlib.pyplot as plt
 class Evaluation:
     def evaluate(self,output,expected):
         d={}
@@ -44,7 +46,29 @@ class Evaluation:
         print precision_recall_fscore_support(trueValues, predictedValues,average='macro')
         print self.calculateRecall(trueValues, predictedValues)
         print self.calculatePrecision(trueValues, predictedValues)
-        
+    def evaluate_results(self,expected,predicted):
+
+        if(len(expected)!=len(predicted)):
+            print "Looks like some values were not predicted properly"
+        print "Precision, Accuracy, Recall, FScore"
+        print precision_recall_fscore_support(expected, predicted,average='binary')
+
+        cm=confusion_matrix(expected, predicted)
+        print "Confusion matrix"
+        print cm
+
+
+    def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Blues):
+        plt.imshow(cm, interpolation='nearest', cmap=cmap)
+        plt.title(title)
+        plt.colorbar()
+        tick_marks =[0,1]
+        plt.xticks(tick_marks, ["Sarcastic","Non-Sarcastic"], rotation=45)
+        plt.yticks(tick_marks, ["Sarcastic","Non-Sarcastic"])
+        plt.tight_layout()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
+        plt.show()
     def calculateRecall(self, trueValues, predictedValues):
         return recall_score(trueValues, predictedValues, average = 'macro')
 

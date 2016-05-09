@@ -1,0 +1,97 @@
+Loading Amazon and reddit reviews for Sarcasm detection
+/Users/bharathipriyaa/Desktop/NLP-Project/Sarcasm-detection-project/Sarcasm-DetectorPy/nyu.nlp/sarcasmClassify.py:16: SettingWithCopyWarning:
+Loading LDA model for topic detection
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  test_df['Actual']= test_df['Score']
++++++++++ Extracting patterns +++++++++
++++++++++ Pattern matching +++++++++
+++++++++ KNN Classification starts here  +++++++
+++++++++ Evaluation starts here ++++++++++
+KNN-Sentence: It seems to evoke either a very positive response from readers or a very negative one. with actual sarcasm=1 got predicted as 0
+KNN-Sentence: It seems to not find focus in some situations. with actual sarcasm=1 got predicted as 0
+KNN-Sentence: IT SITS COLLECTING DUST IN THE CLOSET with actual sarcasm=1 got predicted as 0
+KNN-Sentence: It sounded too good to be true - studio component earphones on sale at half-price! I with actual sarcasm=0 got predicted as 1
+KNN-Sentence: It took awhile until I could wear these without them hurting my ears with actual sarcasm=1 got predicted as 0
+KNN-Sentence: It's the first time that i bought a product and didn't work even once! with actual sarcasm=1 got predicted as 0
+KNN-Sentence: Its a very slim camera. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Just enjoy this erudite journey (although at last the journey seems to be an itinerary and somewhat a waste of time alas.) with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Let me tell you about why I DON'T like Harry Potter. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Let's start with what I don't need in a GPS device with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Maybe these work for some people but my own experience with these is terrible with actual sarcasm=0 got predicted as 0
+KNN-Sentence: My MDR-NC6 headphones left ear piece failed after maybe 50 hours of use. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: My only guess is that this book is selling on the sensationalism of the secret society. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: My wife just got the Creative Zen Vision M last week but we have a problem already the Zen doesn't want to turn On or Off. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: No matter what awards it has won I loath the interface on this thing. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Now I'm afraid to even try the higher-up model ... Shure what's happened?????????? with actual sarcasm=1 got predicted as 0
+KNN-Sentence: obviously the quality is what I expected but at least they WORK. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Of course I bought the device knowing that I had problems with earlier purchases but like an idiot I went ahead with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Ok I can get by then I bought a book and everytime I moved I would  hit the previous page tab...and back it would go...I guess until I get used to this... this is going to happen over and over again... with actual sarcasm=0 got predicted as 1
+KNN-Sentence: People who think these are great earphones must be severely hearing impaired with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Product was on back order for a few days even though website said was in stock. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: purchase of this Garmin 255W unit does NOT include the USB 010-10723-01 cable to connect the unit to your computer and unlike almost any other consumer product out there you cannot register your unit online or download additional options without this cabl with actual sarcasm=0 got predicted as 1
+KNN-Sentence: Should've paid attention to these reviews... and you should too! with actual sarcasm=1 got predicted as 0
+KNN-Sentence: Silly me the Kindle and the Sony eBook can't read these protected formats.  Great! with actual sarcasm=1 got predicted as 1
+KNN-Sentence: So...Unless you are a super techie genius that can master metatags and troubleshooting as well as operating a throughly confusing interface on the zune itself. Don't DO IT!!! with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Sorry I bought this product - I should have bought the Apple 3GS - oh well with actual sarcasm=0 got predicted as 1
+KNN-Sentence: Sorry Shure if you want to charge the money you have to make a product that's worth it. with actual sarcasm=1 got predicted as 0
+KNN-Sentence: That's a Joke... Verizon is 100 time larger and doesn't need Garmin to sell phones!! with actual sarcasm=1 got predicted as 1
+KNN-Sentence: That's how it is. ... I guess it's the Pendulum's  business. with actual sarcasm=1 got predicted as 1
+KNN-Sentence: The author also seems to have forgotten that punctuation exists in English language resulting in choppy short sentences reminiscent of a High School English writing assignment. with actual sarcasm=1 got predicted as 1
+KNN-Sentence: The best I can say of the book is that I could not put it down after I began reading it. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The book Harry Potter and the sorcerers stone is a good book written by J.K Rowling. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The book's plot is very good. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The camera is terrific for close-ups but not for landscapes. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: The fifth book of the Harry Potter series brings a little bit disappointment to me. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: The Garmin GPS has some major flaws one being that its software is unstable and sometimes needs to be totally reinstalled after an attempted update. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The Garmin Nuvi 255W stopped working halfway through our trip overland to 4 states and had to buy another GPS more humble but not failed us at all. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The item I received is not working and it seems that I cannot return it for another and since I used the card ($40.00) I will have purchase another. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The new unit works just fine...so far with actual sarcasm=1 got predicted as 0
+KNN-Sentence: The only formats I miss are Real Video and iTunes (though for latter I guess I can't really blame Creative). with actual sarcasm=1 got predicted as 1
+KNN-Sentence: The phone only worked for two months and then the screen went black. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The SE110 is a horrible earbud for the price. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The Sony ebook reader is not perfect which is why I didn't give it five stars.  with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The sound quality is fine - you get what you pay for with actual sarcasm=1 got predicted as 1
+KNN-Sentence: The universal opinion I'd heard before reading this was that it was good but had a more serious feel and was too long. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The Zune has a nice selection of music and I like the way you can put pictures on it. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: The Zune is a fair music player not the best and not the worst. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: There are cheaper cameras but if you want to get a camera get a good one that doesn't mean it has to be expensive but in my opinion you get what you pay for. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: These earphones have a nice sound but they use inferior insulation in the wires. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: These may have been defective I'm not sure but they didn't do the job. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: They are not the worse earphones I have tried but they are not worth the $ 99 you will spend. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: They assured me that despite all the frenzy surrounding the book it was great! with actual sarcasm=1 got predicted as 1
+KNN-Sentence: They do have some noise reducing abilities but it isn't really worth the price or the pain with actual sarcasm=1 got predicted as 1
+KNN-Sentence: They sound great while they remain in your ear but keeping them in your ear is the problem with actual sarcasm=1 got predicted as 1
+KNN-Sentence: This book in the series is far too slow and isnt worth the wait. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This book is a good quick read but I guess it cannot live up to the hype.... with actual sarcasm=1 got predicted as 1
+KNN-Sentence: This book is about two hobos named George and Lennie. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: This book was one of the worst books I have ever read. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: this book was overall disappointing. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This book was pretty much a waste of time. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This book was the worst! with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This device was received in a timely manner. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This IPOD has a lot of problems and in my opinion is NOT worth the inflated cost. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: this is not a good book...period!! with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This is the most disjointed story I have ever read. with actual sarcasm=0 got predicted as 1
+KNN-Sentence: THIS ISN'T BAD CUSTOMER SERVICE IT'S ZERO CUSTOMER SERVICE with actual sarcasm=1 got predicted as 0
+KNN-Sentence: This novel is interesting but I found the style to be tedious and unsophisticated to no real end. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: This phone is mostly to be kept under a glass display in the living room as it does not easily survive regular use with actual sarcasm=1 got predicted as 1
+KNN-Sentence: This second generation device is twice as fast as its PRS-500 predecessor and it has eight black and white shades instead of the previous 4. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: To be frank Apple should pay us to accept this product push software with actual sarcasm=1 got predicted as 0
+KNN-Sentence: to tell you the truth I was pretty disapointed with this one. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Unless you are VERY patient and VERY much enjoy fiddling with this sort of thing in other words unless you are downright masochistic STAY AWAY from this gadget from hell. with actual sarcasm=1 got predicted as 1
+KNN-Sentence: Very little bass compared to my existing earpods for my iPod. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Very recently I've purchased a Creative Zen 30GM player. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Well you know what happened. ALMOST NOTHING HAPPENED!!!! with actual sarcasm=0 got predicted as 0
+KNN-Sentence: When getting iTunes running again iTunes said that the iPod needed to be restored. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: when i got it i was excited a cool package a great fit and thick cable... but the bass was just NOT THERE with actual sarcasm=1 got predicted as 0
+KNN-Sentence: While I know you get what you pay for the list price belies the quality of the product. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: Who ever said this book was not just for kids is crazy. with actual sarcasm=0 got predicted as 0
+KNN-Sentence: With tons of great literature why is this the best-selling fiction novel of all time?  I guess because it's easy to finish. with actual sarcasm=1 got predicted as 1
+Precision, Accuracy, Recall, FScore
+(0.6428571428571429, 0.59999999999999998, 0.62068965517241381, None)
+Confusion matrix
+[[40 10]
+ [12 18]]

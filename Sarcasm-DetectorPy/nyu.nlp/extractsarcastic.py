@@ -7,7 +7,7 @@ def identify_sentiment(text):
     blob = TextBlob(text)
     sentimentscore = 0
     try:
-        return list(blob.sentiment)
+        return blob.sentiment[0]
     except (RuntimeError, TypeError, NameError,UnicodeDecodeError):
         return 0
 

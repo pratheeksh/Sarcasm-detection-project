@@ -5,31 +5,36 @@ import knnclassifier as knn
 from collections import Counter
 
 class ModifiedKNN():
-    K=100
+    K=2
     def count_labels(self,traintarget):
         arr=np.array(traintarget)
         arr.sort()
         count_labels=Counter(arr)
-        return count_labels
+        count_total=arr.__len__()
+        return count_labels,count_total
     # predict
 
     def predict_test(self,trainvectors,traintarget,testvectors):
-        countlabels=self.count_labels(traintarget)
+        countlabels,count_total=self.count_labels(traintarget)
         test_predictions=[]
         for each_test_vector in testvectors:
             dist=[]
             for each_train_vector in trainvectors:
                 distance=self.calculate_euclidean(each_test_vector,each_train_vector)
                 dist.append(distance)
+
             dict={'Distance': dist,'Scores' : traintarget}
+
             df=pd.DataFrame(data=dict)
             df=df.sort_values(by='Distance',ascending=True)[:self.K]
+
             prediction=0
             topKscores = df['Scores'].tolist()
-
+            print topKscores
             for i in range(self.K):
                 label_i = int(topKscores[i])
-                prediction=prediction+ countlabels[label_i]/100
+                prediction=prediction+ countlabels[label_i]
+            print prediction
             prediction=prediction/self.K
             test_predictions.append(prediction)
 

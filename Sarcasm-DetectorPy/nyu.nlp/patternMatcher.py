@@ -7,41 +7,34 @@ from string import punctuation
 class load_csv():
 
 
-    def init(self,cwset,hfwset):
+    def init(self,cwset,hfwset,filename=""):
 
-        count = 0
         self.cwset=cwset
         self.hfwset=hfwset
-        filename="../data/test.csv"
         text = []
         sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
-        output=[]
-        res = self.generate_sents(filename)
+        res = pd.read_csv(filename)
         test_data = []
-        for tup in res:
-            res_sents,reviewId,funnyScore = tup[0],tup[1],tup[2]
-            for each_sentence in res_sents:
-                if each_sentence is not None:
-                    temp_dict={}
-                    score=self.calculate_matches(each_sentence,sarcastic_pats)
-                    temp_dict['Text'] = each_sentence
-                    temp_dict['Review_id'] = "{}".format(reviewId)
-                    temp_dict['Funny Score'] = "{}".format(funnyScore)
-                    temp_dict['Score'] = score
-                    output.append(temp_dict)
-        return output
-    def generate_amazon_test(self):
-        amazon_reviews=pd.read_csv("../data/amazon.csv")
-        output=[]
-        for index,each_sentence in amazon_reviews.iterrows():
-                if each_sentence is not None:
-                    temp_dict={}
-                    print each_sentence
-                    temp_dict['Text'] = each_sentence['Text']
-                    temp_dict['Review_id'] = "{}".format(4)
-                    temp_dict['Score'] = each_sentence['SASI']
-                    output.append(temp_dict)
-        return output
+        for index,row in res.iterrows():
+            each_sentence,funnyScore = row['Text'],row['Score']
+            """
+            if len(each_sentence)!=0:
+                 row['Score']=self.calculate_matches(each_sentence,sarcastic_pats)
+            """
+        res['Score']=res['Score'].apply(lambda x: 1 if x >3.0 else 0)
+        return res
+
+    def getScoreFeatures(self,df):
+        text = []
+        sarcastic_pats = self.process_amazon("../data/amazon.csv",None,None)
+        for index,row in df.iterrows():
+            each_sentence,Score = row['Text'],row['Score']
+            if len(each_sentence)!=0:
+                 row['Score']=self.calculate_matches(each_sentence,sarcastic_pats)
+
+        #res['Score']=res['Score'].apply(lambda x: 1 if x >3.0 else 0)
+
+        return df
     def match_test_patterns(self,cwset,hfwset):
         filename="../data/Twitter.csv";
         text = []
@@ -126,7 +119,7 @@ class load_csv():
             reader = csv.DictReader(csvfile)
             for row in reader:
                 text = row['Text']
-                b, c, d, e = float(row['MT1']), float(row['MT2']), float(row['MT3']), float(row['SASI'])
+                b, c, d, e = float(row['MT1']), float(row['MT2']), float(row['MT3']), float(row['Score'])
                 avg_score = statistics.mean([b,c,d,e])
                 if avg_score > 3:
                     pat = self.generate_patterns(text)
@@ -139,7 +132,28 @@ class load_csv():
         if(text is None):
             return None
 
-        tokens=nltk.word_tokenize(text.decode("utf-8"))
+        text=nltk.word_tokenize(text.decode("utf-8"))
+        tagged_sent = nltk.pos_tag(text)
+        noun = re.compile('NN|NNS')
+        verb = re.compile('VB*')
+        adj = re.compile('JJ*')
+        adv = re.compile('RB*')
+        res_list = []
+
+        for tup in tagged_sent:
+            word = tup[0]
+            pos = tup[1]
+            pat = ''
+            res = bool(noun.match(pos))|bool(verb.match(pos))|bool(adj.match(pos))|bool(adv.match(pos))
+            if res:
+                new_tup = (word, "CW")
+                pat = pat+'C'
+            else:
+                new_tup = (word, "HFW")
+                pat = pat+'H'
+            res_list.append(pat)
+        return res_list
+        """
         for each_token in tokens:
             isCW= self.cwset.__contains__(each_token)
             isHFW=self.hfwset.__contains__(each_token)
@@ -153,18 +167,10 @@ class load_csv():
                     pat=pat +'H'
 
             pattern.append(pat)
+        """
         return pattern
 
 
-
-    def extract_punct(self,filename):
-        test_data=[]
-        with open(filename,"rb") as csvfile:
-                reader = csv.DictReader(csvfile)
-                for row in reader:
-                    text = row['text']
-                test_data.append(text)
-        featuresets = [(self.extract_features(sentence) for sentence in test_data)]
 
 
     def lcs(self,pattern,sent):
