@@ -11,8 +11,8 @@ sys.setdefaultencoding('utf8')
 class knnClassifier():
 ### Define specific features
     def extract_features_train(self,traindata,testdata):
-        train,target,test = [],[],[]
 
+        train,target,test = [],[],[]
         for data in testdata:
             test.append(self.extract_features_sentence(data))
         for data in traindata:

@@ -10,7 +10,7 @@ class SarcasmClassifier():
     #Load files
     reviews=pd.read_csv("../data/test.csv")
     amazon=pd.read_csv("../data/amazon.csv")
-
+    reddit=pd.read_csv("../data/reddit.")
     # Pattern Extraction -
     print "+++++++++ Extracting patterns +++++++++"
     pattext = pe.PatternExtraction(reviews['text'])
@@ -36,7 +36,7 @@ class SarcasmClassifier():
     train2,target2,test2 = knnobj.extract_features_train(scores_features,test_twitter_data)
     output2 = knnobj.classify(train2,target2,test2)
 
-
+    """
     ev = evaluationMetrics.Evaluation()
     twitter_out = []
     for i,row in enumerate(output2):
@@ -44,11 +44,14 @@ class SarcasmClassifier():
 
     #Modified KNN
     ev.evaluate(twitter_out,expected)
+    """
 '''   mknnObj=mKNN.ModifiedKNN()
     predictions=mknnObj.predict_test(train,target,test)
     for i in range(len(output)):
         print "Sentence={}  KNNClassifier score={} Modified K Score={}".format(test_features[i]['Text'], output[i][1],predictions[i])
 '''
+
+     # Train
 def main():
     sc=SarcasmClassifier()
 
