@@ -3,12 +3,23 @@ import nltk
 import extractsarcastic
 import numpy as np
 import topics as topic
-
+import itertools
+from nltk.collocations import BigramCollocationFinder
+from nltk.metrics import BigramAssocMeasures
+from sklearn.feature_extraction import DictVectorizer
 class FeatureExtractor():
     ldamodel=None
     vec = None
+    def bigram_word_feats(self,words):
+        score_fn = BigramAssocMeasures.chi_sq
+        n = 200
+        bigram_finder = BigramCollocationFinder.from_words(words)
+        bigrams = bigram_finder.nbest(score_fn, n)
+        vec = DictVectorizer()
+        measurements = dict([(ngram, True) for ngram in itertools.chain(words, bigrams)])
+        vec.fit_transform(measurements).toarray()
     def generateUnigramVectorizer(self, dataCollection):
-	   self.vec = unigrams.generateUnigrams(dataCollection)
+        self.vec = unigrams.generateUnigrams(dataCollection)
 
     def generateUnigramFeatureVe(self, review):
 	#vec is obtained from above func on all reviews
