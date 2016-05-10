@@ -15,7 +15,7 @@ class load_csv():
         if dataset=="amazon":
             sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
         else :
-            sarcastic_pats = self.process_reddit("reddit_sarcastic.csv",cwset,hfwset)
+            sarcastic_pats = self.process_reddit("../data/reddit_sarcastic.csv",cwset,hfwset)
         res = pd.read_csv(filename)
         test_data = []
         for index,row in res.iterrows():
