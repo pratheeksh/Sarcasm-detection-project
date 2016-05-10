@@ -8,17 +8,10 @@ import topics as topic
 import evaluationMetrics as evalMet
 class SarcasmClassifier():
     def classify_reddit(self):
-        """ One time code to split reddit reviews
 
-        df=pd.read_csv("../data/reddit.csv")
-        train_df=df.copy(True)
-        train_df['Score']= df['SASI'].apply(lambda x: 1 if x=="yes" else 0)
-        train_df['True']=df['SASI'].apply(lambda x: 1 if x=="yes" else 0)
-        train_df=self.split_reddit_reviews(train_df)
-        """
         #Load files
-        train_df=pd.read_csv("../data/reddit_reviews.csv")
-        test_df=train_df[100:]
+        train_df=self.load_data("../data/reddit_reviews.csv")
+        test_df=train_df[:-400]
         test_df['Actual']= test_df['Score']
         print "Loading   reddit reviews for Sarcasm detection"
 
@@ -57,12 +50,20 @@ class SarcasmClassifier():
         ev.evaluate_results(expected=test_df['Actual'].tolist(),predicted=predicted)
     def load_sarcastic_alone(self):
         """
-        One time module to looad just the sarcastic reviews
+        One time module to load just the sarcastic reviews
         :return:
         """
-        train_df=pd.read_csv("reddit_reviews.csv")
+
+
+        df=pd.read_csv("../data/reddit.csv")
+        train_df=df.copy(True)
+        train_df['Score']= df['SASI'].apply(lambda x: 1 if x=="yes" else 0)
+        train_df['True']=df['SASI'].apply(lambda x: 1 if x=="yes" else 0)
+        train_df=self.split_reddit_reviews(train_df)
+
+        train_df=pd.read_csv("../data/reddit_reviews.csv")
         train_df=train_df[train_df['Score']==1]
-        train_df.to_csv("reddit_sarcastic.csv")
+        train_df.to_csv("../data/reddit_sarcastic.csv")
 
 
     def split_reddit_reviews(self,reviews):
@@ -89,7 +90,7 @@ class SarcasmClassifier():
         df['Text']=Text
         df['Score']=Score
         df['True']=True
-        df.to_csv('reddit_reviews.csv')
+        df.to_csv('../data/reddit_reviews.csv')
 
     def classify(self):
         #Load files
