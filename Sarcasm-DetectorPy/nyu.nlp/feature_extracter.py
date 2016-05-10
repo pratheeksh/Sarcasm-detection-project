@@ -11,13 +11,14 @@ class FeatureExtractor():
     ldamodel=None
     vec = None
     def bigram_word_feats(self,words):
-        score_fn = BigramAssocMeasures.chi_sq
         n = 200
         bigram_finder = BigramCollocationFinder.from_words(words)
-        bigrams = bigram_finder.nbest(score_fn, n)
+        bigrams = bigram_finder.nbest(BigramAssocMeasures.chi_sq, n)
         vec = DictVectorizer()
         measurements = dict([(ngram, True) for ngram in itertools.chain(words, bigrams)])
         vec.fit_transform(measurements).toarray()
+        return vec 
+        #not working, need to convert dictvectorizer to list
     def generateUnigramVectorizer(self, dataCollection):
         self.vec = unigrams.generateUnigrams(dataCollection)
 

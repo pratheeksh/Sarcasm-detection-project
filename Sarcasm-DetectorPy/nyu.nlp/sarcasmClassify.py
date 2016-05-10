@@ -169,9 +169,9 @@ class SarcasmClassifier():
 
 def main():
     sc=SarcasmClassifier()
-    #sc.classify()
+    sc.classify()
     #sc.classify_reddit()
     #sc.load_sarcastic_alone()
-    sc.classify_reddit()
+    #sc.classify_reddit()
 if __name__ == '__main__':
     main()
