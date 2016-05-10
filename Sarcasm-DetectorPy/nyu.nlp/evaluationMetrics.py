@@ -56,18 +56,6 @@ class Evaluation:
         print "Confusion matrix"
         print cm
 
-
-    def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Blues):
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
-        plt.title(title)
-        plt.colorbar()
-        tick_marks =[0,1]
-        plt.xticks(tick_marks, ["Sarcastic","Non-Sarcastic"], rotation=45)
-        plt.yticks(tick_marks, ["Sarcastic","Non-Sarcastic"])
-        plt.tight_layout()
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-        plt.show()
     def calculateRecall(self, trueValues, predictedValues):
         return recall_score(trueValues, predictedValues, average = 'macro')
 
