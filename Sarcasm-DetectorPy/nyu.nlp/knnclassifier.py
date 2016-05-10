@@ -5,6 +5,9 @@ from sklearn.neighbors import KNeighborsClassifier
 import sys
 import extractsarcastic
 import feature_extracter as fe
+import sentiments as senti
+import load_sent
+sentiments  = load_sent.load_sent_word_net()
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -24,12 +27,14 @@ class knnClassifier():
     def extract_features_sentence(self,df,topic,feat):
         fv=fe.FeatureExtractor()
         data=df['Text']
+        sent = senti.Sentiment()
+
         feature_vector=[ fv.count_apost(data),
                          fv.count_qn(data),
                          fv.data_len(data),
                          fv.count_quotes(data),
                          #fv.sarcastic_score(data),
-                         fv.count_capitals(data)] + fv.get_topic(data,topic) + feat.generateUnigramFeatureVe(data)
+                         fv.count_capitals(data)] + fv.get_topic(data,topic) + feat.generateUnigramFeatureVe(data) +  sent.calculateSent(data,sentiments)
         return feature_vector
 
 
