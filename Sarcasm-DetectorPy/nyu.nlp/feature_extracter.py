@@ -1,4 +1,4 @@
-
+import unigrams as unigrams
 import nltk
 import extractsarcastic
 import numpy as np
@@ -6,6 +6,16 @@ import topics as topic
 
 class FeatureExtractor():
     ldamodel=None
+    vec = None
+    def generateUnigramVectorizer(self, dataCollection):
+	   self.vec = unigrams.generateUnigrams(dataCollection)
+
+    def generateUnigramFeatureVe(self, review):
+	#vec is obtained from above func on all reviews
+	#this returns feature vec for one review
+	listReview = unigrams.listify(review)
+	return unigrams.generateUnigramFeatureVect(listReview, self.vec)
+
     def generateDictionary(data):
         '''
         This function identifies unique n-grams in your data.
@@ -64,7 +74,6 @@ class FeatureExtractor():
 
         return extractsarcastic.identify_sentiment(text)
 
-
     def extract_all_features(self,trainDataFrame,testDataFrame):
         train=[]
         test=[]
@@ -75,5 +84,4 @@ class FeatureExtractor():
         test= ([(row['Text']) for index, row in testDataFrame.iterrows()])
         print "++++++ Extracted TEST features"
         return train,test
-
 

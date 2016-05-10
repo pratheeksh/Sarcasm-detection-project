@@ -1,3 +1,4 @@
+import feature_extracter as fe
 import knnclassifier as kc
 import pandas as pd
 import patternExtract as pe
@@ -23,6 +24,8 @@ class SarcasmClassifier():
         print "Loading LDA model for topic detection"
         #Load LDS model for topics
         tc=topic.Topic()
+	feat = fe.FeatureExtractor()
+	feat.generateUnigramVectorizer(train_df['Text'].values.tolist())
         tc.getLdaModel(train_df['Text'].values.tolist())
 
 
@@ -48,7 +51,7 @@ class SarcasmClassifier():
 
         print "++++++++ KNN Classification starts here  +++++++"
         knnobj=kc.knnClassifier()
-        train,target,test = knnobj.extract_features_train(train_features,test_features,tc)
+        train,target,test = knnobj.extract_features_train(train_features,test_features,tc,feat)
         predicted = knnobj.classify(train,target,test)
 
         print "++++++++ Evaluation starts here ++++++++++"

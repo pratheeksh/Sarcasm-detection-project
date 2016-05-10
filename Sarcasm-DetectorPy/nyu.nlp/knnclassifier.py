@@ -11,17 +11,17 @@ sys.setdefaultencoding('utf8')
 class knnClassifier():
 ### Define specific features
     ldamodel=None
-    def extract_features_train(self,traindata,testdata,topic):
+    def extract_features_train(self,traindata,testdata,topic, feat):
 
         train,target,test = [],[],[]
         for index,data in testdata.iterrows():
-            test.append(self.extract_features_sentence(data,topic))
+            test.append(self.extract_features_sentence(data,topic,feat))
         for index,data in traindata.iterrows():
-            train.append(self.extract_features_sentence(data,topic))
+            train.append(self.extract_features_sentence(data,topic,feat))
             target.append((data['Score']))
         return train,target,test
 
-    def extract_features_sentence(self,df,topic):
+    def extract_features_sentence(self,df,topic,feat):
         fv=fe.FeatureExtractor()
         data=df['Text']
         feature_vector=[ fv.count_apost(data),
@@ -29,8 +29,7 @@ class knnClassifier():
                          fv.data_len(data),
                          fv.count_quotes(data),
                          #fv.sarcastic_score(data),
-                         fv.count_capitals(data)] + fv.get_topic(data,topic)
-
+                         fv.count_capitals(data)] + fv.get_topic(data,topic) + feat.generateUnigramFeatureVe(data)
         return feature_vector
 
 
