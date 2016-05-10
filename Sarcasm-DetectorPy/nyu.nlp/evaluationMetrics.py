@@ -5,7 +5,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
-import matplotlib.pyplot as plt
 class Evaluation:
     def evaluate(self,output,expected):
         d={}

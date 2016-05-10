@@ -4,7 +4,6 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 import feature_extracter as fe
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 import extractsarcastic
 class SVMClassify():
