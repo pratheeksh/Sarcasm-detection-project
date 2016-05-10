@@ -7,20 +7,23 @@ from string import punctuation
 class load_csv():
 
 
-    def init(self,cwset,hfwset,filename=""):
+    def init(self,cwset,hfwset,filename="",dataset=""):
 
         self.cwset=cwset
         self.hfwset=hfwset
         text = []
-        sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
+        if dataset=="amazon":
+            sarcastic_pats = self.process_amazon("../data/amazon.csv",cwset,hfwset)
+        else :
+            sarcastic_pats = self.process_reddit("reddit_sarcastic.csv",cwset,hfwset)
         res = pd.read_csv(filename)
         test_data = []
         for index,row in res.iterrows():
             each_sentence,funnyScore = row['Text'],row['Score']
-            """
+
             if len(each_sentence)!=0:
                  row['Score']=self.calculate_matches(each_sentence,sarcastic_pats)
-            """
+
         res['Score']=res['Score'].apply(lambda x: 1 if x >3.0 else 0)
         return res
 
@@ -33,8 +36,8 @@ class load_csv():
                  row['Score']=self.calculate_matches(each_sentence,sarcastic_pats)
 
         #res['Score']=res['Score'].apply(lambda x: 1 if x >3.0 else 0)
-
         return df
+
     def match_test_patterns(self,cwset,hfwset):
         filename="../data/Twitter.csv";
         text = []
@@ -126,7 +129,15 @@ class load_csv():
                     if pat not in sarcastic_patterns:
                         sarcastic_patterns.append(pat)
         return sarcastic_patterns
-
+    def process_reddit(self,filename,cwset,hfwset):
+        sarcastic_patterns = []
+        sarcastic_reviews=pd.read_csv(filename)
+        for index,row in sarcastic_reviews.iterrows():
+            text = row['Text']
+            pat = self.generate_patterns(text)
+            if pat not in sarcastic_patterns:
+                sarcastic_patterns.append(pat)
+        return sarcastic_patterns
     def generate_patterns(self,text):
         pattern=[]
         if(text is None):
