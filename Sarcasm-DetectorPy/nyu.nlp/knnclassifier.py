@@ -34,7 +34,8 @@ class knnClassifier():
                          fv.data_len(data),
                          fv.count_quotes(data),
                          #fv.sarcastic_score(data),
-                         fv.count_capitals(data)] + fv.get_topic(data,topic) + feat.generateUnigramFeatureVe(data) +  sent.calculateSent(data,sentiments)
+                         fv.count_capitals(data)] + fv.get_topic(data,topic) + feat.generateUnigramFeatureVe(data) + 
+                         sent.calculateSent(data,sentiments)
         return feature_vector
 
 
