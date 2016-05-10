@@ -23,7 +23,7 @@ class SarcasmClassifier():
         print "Loading   reddit reviews for Sarcasm detection"
 
 
-        print "Loading LDA model for topic detection"
+        print "Loading LDA model and Unigram Dict for topic detection"
         #Load LDS model for topics
         tc=topic.Topic()
         feat = fe.FeatureExtractor()
@@ -41,6 +41,7 @@ class SarcasmClassifier():
         print "+++++++++ Pattern matching +++++++++"
         # Pattern Matching -
         pm =patternMatcher.load_csv()
+        pm.init(cwset,hfwset,"../data/reddit_reviews.csv","reddit")
         train_features,test_features=pm.getScoreFeatures(train_df),pm.getScoreFeatures(test_df) #scores_features[:500],scores_features[501:]
 
         print "++++++++ KNN Classification starts here  +++++++"
@@ -169,6 +170,7 @@ def main():
     sc=SarcasmClassifier()
     #sc.classify()
     #sc.classify_reddit()
-    sc.load_sarcastic_alone()
+    #sc.load_sarcastic_alone()
+    sc.classify_reddit()
 if __name__ == '__main__':
     main()
